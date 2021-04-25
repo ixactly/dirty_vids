@@ -8,7 +8,14 @@
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-cpu"></script>
 <script src="https://unpkg.com/@tensorflow-models/handpose@0.0.6/dist/handpose.js"></script>
 <div id="info"></div>
-<video id="video">
+<video id="video" playsinline style="
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    visibility: hidden;
+    width: auto;
+    height: auto;
+    position: absolute;
+    ">
 </video>
 
 <canvas id="canvas"></canvas>
