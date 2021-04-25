@@ -5,8 +5,15 @@ let video;
 let media;
 let canvas;
 let ctx;
-videoWidth = 1280;
-videoHeight = 860;
+const VIDEO_WIDTH = 640;
+const VIDEO_HEIGHT = 500;
+function isMobile() {
+    const isAndroid = /Android/i.test(navigator.userAgent);
+    const isiOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+    return isAndroid || isiOS;
+};
+const mobile = isMobile();
+let videoWidth, videoHeight;
 
 // video要素にWebカメラの映像を表示させる
 
@@ -23,8 +30,8 @@ async function setupCamera() {
             facingMode: 'user',
             // Only setting the video to a specified size in order to accommodate a
             // point cloud, so on mobile devices accept the default size.
-            width: { ideal: resolution.w },
-            height: { ideal: resolution.h }
+            width: mobile ? undefined : VIDEO_WIDTH,
+            height: mobile ? undefined : VIDEO_HEIGHT
         },
     });
     video.srcObject = stream;
