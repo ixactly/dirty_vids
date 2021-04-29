@@ -5,17 +5,17 @@ let video;
 let media;
 let canvas;
 let ctx;
-const VIDEO_WIDTH = 640;
-const VIDEO_HEIGHT = 500;
+const VIDEO_WIDTH = 720;
+const VIDEO_HEIGHT = 480;
 function isMobile() {
     const isAndroid = /Android/i.test(navigator.userAgent);
     const isiOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
     return isAndroid || isiOS;
 };
 const mobile = isMobile();
-let videoWidth, videoHeight;
 
 // video要素にWebカメラの映像を表示させる
+let videoWidth, videoHeight;
 
 async function setupCamera() {
     if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
@@ -61,13 +61,16 @@ async function main() {
         throw e;
     }
     canvas = document.getElementById('canvas');
-    canvas.width = VIDEO_WIDTH;
-    canvas.height = VIDEO_HEIGHT;
-    video.width = VIDEO_WIDTH;
-    video.height = VIDEO_HEIGHT;
+    videoWidth = video.videoWidth;
+    videoHeight = video.videoHeight;
+
+    canvas.width = videoWidth;
+    canvas.height = videoHeight;
+    video.width = videoWidth;
+    video.height = videoHeight;
 
     ctx = canvas.getContext('2d');
-
+    ctx.clearRect(0, 0, videoWidth, videoHeight);
     ctx.strokeStyle = 'red';
     ctx.fillStyle = 'red';
 
@@ -83,7 +86,7 @@ async function main() {
 
 const Landmarker = async (video) => {
     async function frameLandmarks() {
-        ctx.drawImage(video, 0, 0, VIDEO_WIDTH, VIDEO_HEIGHT, 0, 0, canvas.width, canvas.height);
+        ctx.drawImage(video, 0, 0, videoWidth, videoHeight, 0, 0, canvas.width, canvas.height);
         const predictions = await model.estimateHands(video);
         if (predictions.length > 0) {
             const keypoints = predictions[0].landmarks; // No.8 is index_finger_tip
