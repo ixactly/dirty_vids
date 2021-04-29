@@ -61,13 +61,13 @@ async function main() {
         throw e;
     }
     canvas = document.getElementById('canvas');
-    canvas.width = videoWidth;
-    canvas.height = videoHeight;
-    video.width = videoWidth;
-    video.height = videoHeight;
+    canvas.width = VIDEO_WIDTH;
+    canvas.height = VIDEO_HEIGHT;
+    video.width = VIDEO_WIDTH;
+    video.height = VIDEO_HEIGHT;
 
     ctx = canvas.getContext('2d');
-    ctx.clearRect(0, 0, videoWidth, videoHeight);
+
     ctx.strokeStyle = 'red';
     ctx.fillStyle = 'red';
 
@@ -83,7 +83,7 @@ async function main() {
 
 const Landmarker = async (video) => {
     async function frameLandmarks() {
-        ctx.drawImage(video, 0, 0, videoWidth, videoHeight, 0, 0, canvas.width, canvas.height);
+        ctx.drawImage(video, 0, 0, VIDEO_WIDTH, VIDEO_HEIGHT, 0, 0, canvas.width, canvas.height);
         const predictions = await model.estimateHands(video);
         if (predictions.length > 0) {
             const keypoints = predictions[0].landmarks; // No.8 is index_finger_tip
