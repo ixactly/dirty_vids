@@ -101,8 +101,6 @@ const Landmarker = async (video) => {
     frameLandmarks();
 };
 
-
-
 // video要素の映像をcanvasに描画する
 /*
 _canvasUpdate();
