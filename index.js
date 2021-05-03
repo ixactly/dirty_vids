@@ -51,6 +51,7 @@ async function loadVideo() {
 
 let model;
 async function main() {
+    console.log('run main');
     let video;
     try {
         video = await loadVideo();
